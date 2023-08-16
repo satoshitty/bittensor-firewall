@@ -89,11 +89,12 @@ The script will determine the gateway IP address of the Docker bridge network, u
         [[http.services.myapp.loadBalancer.servers]]
           url = "http://GATEWAY_IP:PORT" # Replaces GATEWAY_IP automatically
         ...
-          url = "http://192.168.99.1:PORT" # Replaced GATEWAY_IP with 192.168.99.1
+          url = "http://192.168.99.1:PORT" # Example: replaced GATEWAY_IP with 192.168.99.1
 
 > NOTE: If you are not on a docker group, you'll need to add `sudo` before any docker command in the `firewall.py` script and the `start.sh` script.
 firewall.py:
-> `subprocess.run(["sudo", "docker", "kill", "-s", "HUP", "traefik"])`
+> `subprocess.run(["sudo", "docker", "stop",  "traefik"])`
+> `subprocess.run(["sudo", "docker", "start", "traefik"])`
 > start.sh:
 > `GATEWAY_IP=$(sudo docker network inspect bridge --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}')`
 
