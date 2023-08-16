@@ -4,20 +4,24 @@
 TRAEFIK_CONFIG_PATH="traefik.toml"
 
 # Get the gateway IP address of the Docker bridge network
-GATEWAY_IP=$(docker network inspect bridge --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}')
+GATEWAY_IP=$(sudo docker network inspect bridge --format '{{range .IPAM.Config}}{{.Gateway}}{{end}}')
 
 # Replace GATEWAY_IP in the traefik.toml file
 sed -i "s/GATEWAY_IP/$GATEWAY_IP/g" $TRAEFIK_CONFIG_PATH
 
 # Replace PORT in the traefik.toml file if not specified
-PORT=8091 # default
+PORT=8888 # default
 sed -i "s/PORT/$PORT/g" $TRAEFIK_CONFIG_PATH
 
+docker stop traefik
+docker rm traefik
+
 # Run Traefik using Docker
-sudo docker run -d \
+docker run -d \
   --name traefik \
   --publish 80:80 \
-  --volume $TRAEFIK_CONFIG_PATH:/etc/traefik/traefik.toml \
+  --volume $PWD/traefik.toml:/etc/traefik/traefik.toml \
+  --volume $PWD/dynamic_conf:/etc/traefik/dynamic_conf \
   traefik:latest
 
 # Start the Python script with PM2
