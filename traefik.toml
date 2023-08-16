@@ -17,7 +17,7 @@
 [http.services]
   [http.services.btfirewall.loadBalancer]
     [[http.services.btfirewall.loadBalancer.servers]]
-      url = "http://192.168.99.1:8091" # Replace 192.168.99.1 and 8091
+      url = "http://GATEWAY_IP:PORT" # Replace GATEWAY_IP and PORT
 
 [log]
   level = "DEBUG"
