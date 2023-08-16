@@ -3,6 +3,13 @@
 
 This tutorial guides you through setting up [Traefik](https://traefik.io/) in a Docker container to proxy and apply IP whitelisting to an application running on the host machine. This setup is suitable for Linux users, but also works for Mac and includes a Python script to dynamically update the whitelisted IPs pulled from the [Bittensor](https://github.com/opentensor/bittensor) metagraph.
 
+## Support keeping Bittensor information free and open
+This work is done at-will, is fully open source, and is not affiliated with the Opentensor Foundation. Please consider donating to help maintain the ecosystem.
+
+TAO Address: 5GeYLB44QY9wcqJmFZvJW8D3EYPDaJGSgGfkbJVxUbkVcU7C
+ETH Address: 0x638e97d12D478daEF38919acd8286020aB567D0B
+
+
 ## Prerequisites
 
 - Docker installed on your Linux system.
