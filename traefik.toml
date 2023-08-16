@@ -1,0 +1,23 @@
+# traefik.toml
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+
+[providers.file]
+  directory = "/etc/traefik/dynamic_conf"
+  watch = true
+
+[http.routers]
+  [http.routers.general]
+    rule = "PathPrefix(`/`)"
+    service = "btfirewall"
+    middlewares = ["myipwhitelist"]
+
+[http.services]
+  [http.services.btfirewall.loadBalancer]
+    [[http.services.btfirewall.loadBalancer.servers]]
+      url = "http://192.168.99.1:8091" # Replace 192.168.99.1 and 8091
+
+[log]
+  level = "DEBUG"
