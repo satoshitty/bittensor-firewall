@@ -21,6 +21,6 @@ sudo docker run -d \
   traefik:latest
 
 # Start the Python script with PM2
-pm2 start scripts/firewall.py --name "BittensorFW" --interpreter "$(which python)"
+pm2 start firewall.py --name "BittensorFW" --interpreter "$(which python)"
 
 echo "Traefik and Bittensor Firewall are now running!"
