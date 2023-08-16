@@ -52,12 +52,13 @@ def whitelist_ips_in_traefik(ips: List[str]):
         toml.dump(config, file)
 
     # Notify Traefik to reload its configuration
-    subprocess.run(["docker", "kill", "-s", "HUP", "traefik"])
+    subprocess.run(["docker", "stop", "traefik"])
+    subprocess.run(["docker", "start", "traefik"])
 
 # Function to parse command line arguments
 def parse_arguments():
     parser = argparse.ArgumentParser(description="Run firewall")
-    parser.add_argument('--netuid', help='Subnet(s) to add firewall to', choices=[1, 11, 21], default=1, type=int, nargs='+')
+    parser.add_argument('--netuid', help='Subnet(s) to add firewall to', choices=[1, 11, 21], default=11, type=int, nargs='+')
     parser.add_argument('--subtensor.chain_endpoint', dest='chain_endpoint', help='Subtensor node', type=str, required=False, default=None)
     parser.add_argument('--sleep-blocks', dest='sleep_blocks', help='Number of blocks to sleep between updates', type=int, required=False, default=100)
     args = parser.parse_args()
