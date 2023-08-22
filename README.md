@@ -37,15 +37,9 @@ Follow the instructions in the original README for multiple applications on diff
 
 You can use the provided `start.sh` script to automate the rest of the setup process:
 
-1. Make the script executable:
-   ```bash
-   chmod +x start.sh
-   ```
-
-2. Run the script:
-   ```bash
-   ./start.sh
-   ```
+```bash
+./start.sh
+```
 
 #### What this script does:
 
