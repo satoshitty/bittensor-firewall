@@ -1,15 +1,17 @@
-Certainly! Based on the provided original README and the logic in `start.sh`, here's the updated README file:
-
 # Bittensor Firewall
 
 > TL;DR 
 This tutorial guides you through setting up [Traefik](https://traefik.io/) in a Docker container to proxy and apply IP whitelisting to Bittensor applications running on the host machine. This setup is mostly suitable for Linux users, but *should* also work for Mac. It includes a Python script to dynamically update the whitelisted IPs pulled from the [Bittensor](https://github.com/opentensor/bittensor) metagraph as well as a watcher script to publish local IP to chain, both of which are managed by a pm2 process.
 
+
 ***Traefik IP Whitelisting with Docker***
+
+> NOTE: There is a "lightweight" firewall option to just use ufw if you don't use docker containers for your applications. See the [ufw](ufw/firewall.py) script and [README](ufw/README.md).
 
 The Bittensor Firewall utilizes Traefik and Docker to create a secure and efficient gateway for Bittensor applications. Traefik, running inside a Docker container, acts as a reverse proxy, fielding incoming HTTP requests and directing them to the appropriate Bittensor applications running on the host machine. This configuration allows Traefik to control and monitor the traffic, applying IP whitelisting to ensure that only authorized IP addresses can access the applications. By employing Traefik's dynamic configuration capabilities, the setup can regularly update the whitelist, reflecting changes in the Bittensor metagraph. This ensures continuous alignment with the current network state, thereby enhancing security.
 
 In addition to acting as a firewall, this combination of Traefik and Docker also brings load balancing and automated routing benefits. With Docker hosting both the Traefik container and the application containers, they are part of a unified ecosystem that simplifies configuration, deployment, and scaling. By strategically managing the routing of requests, Traefik ensures efficient utilization of resources and provides a seamless integration point between the Bittensor applications and the external world. 
+
 
 ## Support keeping Bittensor information free and open
 This work is done at-will, is fully open source, and is not affiliated with the Opentensor Foundation. Please consider donating to help maintain the ecosystem.
