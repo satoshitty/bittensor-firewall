@@ -33,6 +33,19 @@ python -m pip install -r requirements.txt
 
 > NOTE: `GATEWAY_IP` will be replaced automatically by the `start.sh` script based on your docker network gateway, or you can specify it manually if known.
 
+### Step 1.1: Update `start.sh` to use your docker image and specify port(s) desired.
+```bash
+$DOCKER_COMMAND run -d \
+    -p 8081:8080 \                                                   # Only modify the number left of the colon (:), refers to external port
+    --name myapp \                                                   # Name of your docker container, irrelevant
+    -l "traefik.enable=true" \                                       # Tell docker to use traefik
+    -l 'traefik.http.routers.myapp.rule=PathPrefix(`/`)' \           # This refers to all routes that begin with `/`, do not modify
+    -l "traefik.http.services.myapp.loadbalancer.server.port=8080" \ # This specifies internal port, do not modify
+    -l "traefik.http.routers.myapp.middlewares=myipwhitelist@file" \ # This specifies name for our whitelist middleware
+    <YOUR-DOCKER-IMAGE>                                              # This is your docker image name housing your application
+
+```
+
 ## Step 2: Run automated shell script
 
 You can use the provided `start.sh` script to automate the rest of the process:
