@@ -3,39 +3,27 @@
 # Define the entry points for Traefik. This is where the incoming traffic will be received.
 [entryPoints]
   [entryPoints.web]
-    # Listen on port 80.
     address = ":80"
 
 # Configuration for the dynamic configuration providers.
 [providers]
-  # Configure the file provider.
+  # Docker provider
+  [providers.docker]
+    endpoint = "unix:///var/run/docker.sock"
+    exposedByDefault = false
+
+  # File provider
   [providers.file]
-    # Specify the directory where the dynamic configuration files are located.
     directory = "/etc/traefik/dynamic_conf"
-    # Watch for changes in the configuration files and reload Traefik's configuration if a change is detected.
     watch = true
-
-# HTTP-specific configurations.
-[http]
-  # Define the routers.
-  [http.routers]
-    [http.routers.general]
-      # Define the rule for this router. It will match any request with a path that starts with `/`.
-      rule = "PathPrefix(`/`)"
-      # Specify the service that this router forwards traffic to.
-      service = "btfirewall"
-      # Specify the middleware to be applied to this router.
-      middlewares = ["myipwhitelist"]
-
-  # Define the services.
-  [http.services]
-    [http.services.btfirewall.loadBalancer]
-      # Specify the backend servers for this service.
-      [[http.services.btfirewall.loadBalancer.servers]]
-        # The URL of the backend server. Replace `GATEWAY_IP` and `PORT` with the correct local IP and port your application runs on.
-        url = "http://GATEWAY_IP:PORT" # usually GATEWAY_IP == 172.17.0.1 for docker networks
 
 # Logging configuration.
 [log]
-  # Set the log level. Possible values are "DEBUG", "INFO", "WARN", and "ERROR".
   level = "DEBUG"
+
+[accessLog]
+
+# API and dashboard configuration.
+[api]
+  dashboard = true
+  insecure = true
